@@ -10,7 +10,7 @@ const MytaskCard = ({ task, refetch}) => {
 //   const {refetch} = useQuery();
 
   const handleCompleted = (_id) => {
-    fetch(`http://localhost:5000/tasks/${_id}`, {
+    fetch(`https://my-task-server-five.vercel.app/tasks/${_id}`, {
       method: "PUT",
       // body: JSON.stringify({
       //   completed: true,

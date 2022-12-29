@@ -8,7 +8,7 @@ const Completed = () => {
             queryKey: ["completedtasks"],
             queryFn: async () => {
               try {
-                const res = await fetch("http://localhost:5000/completedtasks?completed=true");
+                const res = await fetch("https://my-task-server-five.vercel.app/completedtasks?completed=true");
                 const data = res.json();
                 return data;
               } catch (error) {}

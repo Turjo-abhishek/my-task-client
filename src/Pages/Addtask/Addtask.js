@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import DatePicker from "react-datepicker";
 import TimePicker from "react-time-picker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -6,8 +6,10 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { Button, Spinner } from "flowbite-react";
+import { AuthContext } from "../../Contexts/Authprovider";
 
 const Addtask = () => {
+    const {user} = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [value, onChange] = useState("10:00");
@@ -37,8 +39,9 @@ const Addtask = () => {
             image: imgdata.data.url,
             time: value,
             date: startDate.getDate()+"-"+startDate.getMonth()+"-"+startDate.getUTCFullYear(),
+            email: user.email
           };
-          fetch("http://localhost:5000/tasks", {
+          fetch("https://my-task-server-five.vercel.app/tasks", {
             method: "POST",
             headers: {
               "content-type": "application/json",
