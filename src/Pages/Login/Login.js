@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Contexts/Authprovider";
 
 const Login = () => {
@@ -83,7 +83,12 @@ const Login = () => {
         {loginError && <p className="text-red-500">{loginError}</p>}
         <Button type="submit">Login</Button>
       </form>
-      <p className="text-center my-5">or,</p>
+      <div class="inline-flex justify-center items-center w-full">
+        <hr class="my-8 w-56 h-px bg-gray-700 border-0 dark:bg-gray-700" />
+        <span class="absolute left-1/2 px-3 font-medium text-gray-900 bg-white -translate-x-1/2 dark:text-white dark:bg-gray-900">
+          or
+        </span>
+      </div>
       <Button className="w-full" onClick={handleGoogleLogin}>
         <FaGoogle className="mr-2"></FaGoogle>
         Sign in With Google
@@ -95,8 +100,6 @@ const Login = () => {
         </Link>
       </p>
     </section>
-
-    
   );
 };
 
