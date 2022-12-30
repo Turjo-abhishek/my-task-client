@@ -3,8 +3,8 @@ import React from "react";
 import { BiCalendar } from "react-icons/bi";
 import { MdOutlineWatchLater } from "react-icons/md";
 import { BsCheck } from "react-icons/bs";
-import { MdOutlineCancel } from "react-icons/md";
 import { toast } from "react-hot-toast";
+import { AiFillDelete } from "react-icons/ai";
 
 const MytaskCard = ({ task, refetch}) => {
   const { image, name, description, date, time, _id, completed } = task;
@@ -72,7 +72,7 @@ const MytaskCard = ({ task, refetch}) => {
                 Mark as Complete <BsCheck className="text-2xl"></BsCheck>
               </Button>
             )}
-            <button onClick={() => handleDelete(_id)} className="px-6 py-2 text-red-100 rounded-md bg-gradient-to-r from-red-700 to-red-500 flex gap-1 items-center">Delete <MdOutlineCancel className="text-2xl"></MdOutlineCancel></button>
+            <button onClick={() => handleDelete(_id)} className="px-6 py-2 text-red-100 rounded-md bg-gradient-to-r from-red-700 to-red-500 flex gap-1 items-center">Delete <AiFillDelete className="text-2xl"></AiFillDelete></button>
           </div>
         </div>
       </div>

@@ -1,18 +1,61 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { BiCalendar } from "react-icons/bi";
 import { MdOutlineWatchLater } from "react-icons/md";
-import { MdOutlineCancel } from "react-icons/md";
+import { MdModeComment } from "react-icons/md";
+import { AiFillDelete } from "react-icons/ai";
+import { useQuery } from "@tanstack/react-query";
 
 const CompletedtaskCard = ({ completedTask, refetch }) => {
   const { image, name, description, date, time, _id } = completedTask;
+  const [comments, setComments] = useState([]);
 
-  const {handleSubmit, register} = useForm();
+  // const {
+  //   data: comments = [],
+  //   refetch,
+  //   isLoading,
+  // } = useQuery({
+  //   queryKey: ["comments"],
+  //   queryFn: async () => {
+  //     try {
+  //       const res = await fetch(`http://localhost:5000/comments/${_id}`);
+  //       const data = res.json();
+  //       return data;
+  //     } catch (error) {}
+  //   },
+  // });
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/comments/${_id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setComments(data);
+      });
+  }, [_id, comments]);
+
+  const { handleSubmit, register, reset } = useForm();
 
   const handleComment = (data) => {
-    
-  }
+    const newComment = {
+      comment: data.comment,
+      taskId: _id,
+    };
+    fetch("http://localhost:5000/comments", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newComment),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          reset();
+        }
+      });
+  };
 
   const handleDelete = (_id) => {
     fetch(`http://localhost:5000/tasks/${_id}`, {
@@ -27,8 +70,19 @@ const CompletedtaskCard = ({ completedTask, refetch }) => {
       });
   };
 
+  const handleDeleteComment = (_id) => {
+    fetch(`http://localhost:5000/comments/${_id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.deletedCount > 0) {
+        }
+      });
+  }
+
   return (
-    <div className="flex mt-10 lg:mb-40 items-center">
+    <div className=" mt-10 lg:mb-40">
       <div className="group relative mx-auto w-3/4 lg:w-96 overflow-hidden rounded-[16px] bg-gray-300 p-[1px] transition-all duration-300 ease-in-out hover:bg-gradient-to-r hover:from-indigo-500 hover:via-purple-500 hover:to-pink-500 shadow-md">
         <div className="group-hover:animate-spin-slow invisible absolute -top-40 -bottom-40 left-10 right-10 bg-gradient-to-r from-transparent via-white/90 to-transparent group-hover:visible "></div>
         <div className="relative rounded-[15px] bg-white p-6">
@@ -49,7 +103,7 @@ const CompletedtaskCard = ({ completedTask, refetch }) => {
             onClick={() => handleDelete(_id)}
             className="px-4 py-2 text-sm mt-3 text-red-100 rounded-md bg-gradient-to-r from-red-700 to-red-500 flex gap-1 items-center"
           >
-            Delete Task<MdOutlineCancel className="text-xl"></MdOutlineCancel>
+            Delete Task<AiFillDelete className="text-xl"></AiFillDelete>
           </button>
           <div className="inline-flex justify-center items-center w-full">
             <hr className="my-5 w-full h-px bg-gray-400 rounded border-0" />
@@ -68,11 +122,23 @@ const CompletedtaskCard = ({ completedTask, refetch }) => {
               </svg>
             </div>
           </div>
+          <div>
+            {comments.map((comment) => (
+              <div className="">
+                <p className="flex justify-between items-center gap-1 bg-slate-200 mb-2 p-2 rounded-lg">
+                  <span className="flex justify-center items-center gap-1">
+                    <MdModeComment></MdModeComment> {comment.comment}
+                  </span>{" "}
+                  <AiFillDelete className="hover:cursor-pointer" onClick={() => handleDeleteComment(comment._id)}></AiFillDelete>{" "}
+                </p>
+              </div>
+            ))}
+          </div>
           <form onSubmit={handleSubmit(handleComment)}>
             <div class="w-full mb-4 rounded-lg ">
               <div>
                 <input
-                {...register("comment")}
+                  {...register("comment")}
                   type="text"
                   placeholder="Your Comment"
                   class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
