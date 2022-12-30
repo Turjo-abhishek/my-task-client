@@ -16,7 +16,7 @@ const Mytask = () => {
     queryKey: ["tasks"],
     queryFn: async () => {
       try {
-        const res = await fetch(`http://localhost:5000/tasks?email=${user.email}`);
+        const res = await fetch(`https://my-task-server-five.vercel.app/tasks?email=${user.email}`);
         const data = res.json();
         return data;
       } catch (error) {}

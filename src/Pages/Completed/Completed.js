@@ -16,7 +16,7 @@ const Completed = () => {
     queryFn: async () => {
       try {
         const res = await fetch(
-          `http://localhost:5000/completedtasks?email=${user.email}`
+          `https://my-task-server-five.vercel.app/completedtasks?email=${user.email}`
         );
         const data = res.json();
         return data;

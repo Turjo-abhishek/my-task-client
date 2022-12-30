@@ -9,6 +9,7 @@ import { AuthContext } from "../../Contexts/Authprovider";
 const Login = () => {
   const { Login, googleLogin, loading } = useContext(AuthContext);
   const [loginError, setLoginError] = useState("");
+  const navigate = useNavigate();
 
   const {
     register,
@@ -23,6 +24,7 @@ const Login = () => {
       .then((result) => {
         toast.success("Logged in successfully");
         reset();
+        navigate("/");
       })
       .catch((error) => {
         setLoginError(error.message);
@@ -33,6 +35,7 @@ const Login = () => {
     googleLogin()
       .then((result) => {
         toast.success("Logged in successfully with Google");
+        navigate("/");
       })
       .catch((error) => {
         console.error(error);

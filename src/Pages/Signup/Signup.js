@@ -3,13 +3,14 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaGoogle } from "react-icons/fa";
 import { toast } from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Contexts/Authprovider";
 
 const Signup = () => {
   const { handleSubmit, register, reset } = useForm();
   const [signUpError, setSignUpError] = useState("");
-  const { createUser, googleLogin, loading } = useContext(AuthContext);
+  const { createUser, googleLogin } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleRegister = (data) => {
     setSignUpError("");
@@ -19,6 +20,7 @@ const Signup = () => {
         console.log(user);
         toast("User created successfully");
         reset();
+        navigate("/");
       })
       .catch((error) => setSignUpError(error.message));
   };
@@ -27,6 +29,7 @@ const Signup = () => {
     googleLogin()
       .then((result) => {
         toast.success("Logged in successfully with Google");
+        navigate("/");
       })
       .catch((error) => {
         console.error(error);

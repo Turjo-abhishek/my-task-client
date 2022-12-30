@@ -11,7 +11,7 @@ const MytaskCard = ({ task, refetch}) => {
 
 
   const handleCompleted = (_id) => {
-    fetch(`http://localhost:5000/tasks/${_id}`, {
+    fetch(`https://my-task-server-five.vercel.app/tasks/${_id}`, {
       method: "PUT",
     })
       .then((response) => response.json())
@@ -24,7 +24,7 @@ const MytaskCard = ({ task, refetch}) => {
   };
 
   const handleDelete = (_id) => {
-    fetch(`http://localhost:5000/tasks/${_id}`, {
+    fetch(`https://my-task-server-five.vercel.app/tasks/${_id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

@@ -41,7 +41,7 @@ const Addtask = () => {
             date: startDate.getDate()+"-"+startDate.getMonth()+"-"+startDate.getUTCFullYear(),
             email: user.email
           };
-          fetch("http://localhost:5000/tasks", {
+          fetch("https://my-task-server-five.vercel.app/tasks", {
             method: "POST",
             headers: {
               "content-type": "application/json",

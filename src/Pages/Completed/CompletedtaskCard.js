@@ -19,7 +19,7 @@ const CompletedtaskCard = ({ completedTask, refetch }) => {
   //   queryKey: ["comments"],
   //   queryFn: async () => {
   //     try {
-  //       const res = await fetch(`http://localhost:5000/comments/${_id}`);
+  //       const res = await fetch(`https://my-task-server-five.vercel.app/comments/${_id}`);
   //       const data = res.json();
   //       return data;
   //     } catch (error) {}
@@ -27,7 +27,7 @@ const CompletedtaskCard = ({ completedTask, refetch }) => {
   // });
 
   useEffect(() => {
-    fetch(`http://localhost:5000/comments/${_id}`)
+    fetch(`https://my-task-server-five.vercel.app/comments/${_id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -42,7 +42,7 @@ const CompletedtaskCard = ({ completedTask, refetch }) => {
       comment: data.comment,
       taskId: _id,
     };
-    fetch("http://localhost:5000/comments", {
+    fetch("https://my-task-server-five.vercel.app/comments", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -58,7 +58,7 @@ const CompletedtaskCard = ({ completedTask, refetch }) => {
   };
 
   const handleDelete = (_id) => {
-    fetch(`http://localhost:5000/tasks/${_id}`, {
+    fetch(`https://my-task-server-five.vercel.app/tasks/${_id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -71,7 +71,7 @@ const CompletedtaskCard = ({ completedTask, refetch }) => {
   };
 
   const handleDeleteComment = (_id) => {
-    fetch(`http://localhost:5000/comments/${_id}`, {
+    fetch(`https://my-task-server-five.vercel.app/comments/${_id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

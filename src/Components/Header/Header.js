@@ -15,7 +15,7 @@ const Header = () => {
   };
 
   return (
-    <Navbar fluid={true} rounded={true} className="pt-4 pb-4">
+    <Navbar fluid={true} rounded={true} className="pt-6 pb-6 shadow-md">
       <Navbar.Brand>
         <Link to="/">
           <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
